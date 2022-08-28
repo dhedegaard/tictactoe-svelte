@@ -24,23 +24,24 @@ const createInitialState = () => {
 };
 
 export const createGame = () => {
-	let state = createInitialState();
+	let { board, currentPlayer, winner } = createInitialState();
 
+	/** Triggers a click on the given position, for the current player. */
 	const clickPosition = (x: number, y: number): 'position-already-taken' | 'ok' | 'game-ended' => {
 		if (x < 0 || x > 2 || y < 0 || y > 2) {
 			throw new Error('Invalid position');
 		}
 
-		if (state.board[y][x] !== ' ') {
+		if (result.board[y][x] !== ' ') {
 			return 'position-already-taken';
 		}
-		if (state.winner != null) {
+		if (result.winner != null) {
 			return 'game-ended';
 		}
 
 		// Update the board.
-		state.board[y][x] = state.currentPlayer;
-		state.currentPlayer = state.currentPlayer === 'X' ? ('O' as Player) : ('X' as Player);
+		result.board[y][x] = result.currentPlayer;
+		result.currentPlayer = (result.currentPlayer === 'X' ? 'O' : 'X') as Player;
 
 		checkWinner();
 
@@ -48,54 +49,62 @@ export const createGame = () => {
 	};
 
 	const checkWinner = () => {
-		if (state.winner != null) {
+		if (result.winner != null) {
 			return;
 		}
 		for (let y = 0; y < 3; y++) {
-			const row = state.board[y];
+			const row = result.board[y];
 			const firstElem = row[0];
 			if (isPlayer(firstElem) && firstElem === row[1] && firstElem === row[2]) {
-				state.winner = firstElem;
+				result.winner = firstElem;
 				return;
 			}
 		}
 		for (let x = 0; x < 3; x++) {
-			const firstElem = state.board[0][x];
+			const firstElem = result.board[0][x];
 			if (
 				isPlayer(firstElem) &&
-				firstElem === state.board[1][x] &&
-				firstElem === state.board[2][x]
+				firstElem === result.board[1][x] &&
+				firstElem === result.board[2][x]
 			) {
-				state.winner = firstElem;
+				result.winner = firstElem;
 				return;
 			}
 		}
-		const firstElem = state.board[0][0];
-		if (isPlayer(firstElem) && firstElem === state.board[1][1] && firstElem === state.board[2][2]) {
-			state.winner = firstElem;
+		const firstElem = result.board[0][0];
+		if (
+			isPlayer(firstElem) &&
+			firstElem === result.board[1][1] &&
+			firstElem === result.board[2][2]
+		) {
+			result.winner = firstElem;
 			return;
 		}
-		const secondElem = state.board[0][2];
+		const secondElem = result.board[0][2];
 		if (
 			isPlayer(secondElem) &&
-			secondElem === state.board[1][1] &&
-			secondElem === state.board[2][0]
+			secondElem === result.board[1][1] &&
+			secondElem === result.board[2][0]
 		) {
-			state.winner = secondElem;
+			result.winner = secondElem;
 			return;
 		}
 	};
 
+	/** Resets the game state to the initial result. */
 	const reset = () => {
-		state = createInitialState();
+		const newState = createInitialState();
+		(board = newState.board), (currentPlayer = newState.currentPlayer), (winner = newState.winner);
 	};
 
-	return {
-		board: Object.freeze(state.board) as Board,
-		currentPlayer: Object.freeze(state.currentPlayer),
+	const result = {
+		// State
+		board,
+		currentPlayer,
+		winner,
+		// Actions
 		clickPosition,
-		winner: state.winner,
-		state,
 		reset
 	};
+	return result;
 };

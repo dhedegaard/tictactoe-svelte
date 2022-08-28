@@ -7,12 +7,12 @@
 	const clickPosition = (x: number, y: number) => {
 		const rc = game.clickPosition(x, y);
 		switch (rc) {
-			case 'game-ended':
-				alert('Game ended');
-				return;
 			case 'ok':
 				// State changed, trigger reactivity.
 				game = game;
+				return;
+			case 'game-ended':
+				alert('Game ended');
 				return;
 			case 'position-already-taken':
 				alert('Position already taken');
@@ -23,11 +23,30 @@
 	};
 </script>
 
-<p>Current player: <b>{game.currentPlayer}</b></p>
-
-{#if game.winner != null}
-	<h2>{game.winner} has won the game!</h2>
-	<button type="button" on:click={game.reset}>Reset game</button>
-{/if}
+<div class="player-row">
+	<p>Current player: <b>{game.currentPlayer}</b></p>
+	{#if game.winner != null}
+		<div class="winner">
+			<h4>{game.winner} has won the game!</h4>
+			<button type="button" on:click={game.reset}>Reset game</button>
+		</div>
+	{/if}
+</div>
 
 <Board board={game.board} {clickPosition} />
+
+<style>
+	.player-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1em;
+	}
+
+	.winner {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1em;
+	}
+</style>
