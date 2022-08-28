@@ -29,12 +29,17 @@
 </script>
 
 <div class="player-row">
-	<p>Current player: <b>{game.currentPlayer}</b></p>
 	{#if game.winner != null}
-		<div class="winner">
-			<h4>{game.winner} has won the game!</h4>
-			<button type="button" on:click={clickReset}>Reset game</button>
-		</div>
+		<h4>
+			{#if game.winner === 'DRAW'}
+				Draw
+			{:else}
+				Winner: {game.winner}
+			{/if}
+		</h4>
+		<button type="button" on:click={clickReset}>Reset game</button>
+	{:else}
+		<p>Current player: <b>{game.currentPlayer}</b></p>
 	{/if}
 </div>
 
@@ -42,16 +47,9 @@
 
 <style>
 	.player-row {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
 		margin-bottom: 1em;
-	}
-
-	.winner {
 		display: flex;
+		gap: 8px;
 		align-items: center;
-		justify-content: center;
-		gap: 1em;
 	}
 </style>

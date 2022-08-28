@@ -6,6 +6,7 @@ export type Board = [
 	[CellValue, CellValue, CellValue],
 	[CellValue, CellValue, CellValue]
 ];
+type Winner = Player | 'DRAW';
 
 const createInitialState = () => {
 	const board: Board = [
@@ -14,7 +15,7 @@ const createInitialState = () => {
 		[' ', ' ', ' ']
 	];
 	const currentPlayer: Player = 'X';
-	const winner = undefined as Player | undefined;
+	const winner = undefined as Winner | undefined;
 
 	return {
 		board: board as Board,
@@ -87,6 +88,10 @@ export const createGame = () => {
 			secondElem === result.board[2][0]
 		) {
 			result.winner = secondElem;
+			return;
+		}
+		if (result.board.every((row) => row.every((cell) => cell !== ' '))) {
+			result.winner = 'DRAW';
 			return;
 		}
 	};
