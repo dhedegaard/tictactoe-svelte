@@ -70,6 +70,20 @@ export const createGame = () => {
 				return;
 			}
 		}
+		const firstElem = state.board[0][0];
+		if (isPlayer(firstElem) && firstElem === state.board[1][1] && firstElem === state.board[2][2]) {
+			state.winner = firstElem;
+			return;
+		}
+		const secondElem = state.board[0][2];
+		if (
+			isPlayer(secondElem) &&
+			secondElem === state.board[1][1] &&
+			secondElem === state.board[2][0]
+		) {
+			state.winner = secondElem;
+			return;
+		}
 	};
 
 	const reset = () => {

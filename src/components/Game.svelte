@@ -3,6 +3,7 @@
 	import Board from './Board.svelte';
 
 	let game = createGame();
+
 	const clickPosition = (x: number, y: number) => {
 		const rc = game.clickPosition(x, y);
 		switch (rc) {
@@ -30,5 +31,3 @@
 {/if}
 
 <Board board={game.board} {clickPosition} />
-
-<hr />
