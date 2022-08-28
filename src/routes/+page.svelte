@@ -1,10 +1,11 @@
+<script>
+	import Game from '../components/Game.svelte';
+</script>
+
 <div class="container">
 	<h1>Tic tac toe</h1>
 	<hr />
-	<p>
-		An implementation of tic tac toe in it's simplest form, for simply learning and understanding
-		how svelte works.
-	</p>
+	<Game />
 </div>
 
 <style>
