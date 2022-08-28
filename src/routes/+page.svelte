@@ -3,8 +3,18 @@
 </script>
 
 <div class="container">
-	<h1>Tic tac toe</h1>
+	<div class="title">
+		<h1>Tic tac toe in Svelte</h1>
+		<a
+			class="github-link"
+			href="https://github.com/dhedegaard/tictactoe-svelte"
+			target="_blank"
+			rel="noopener noreferer">Github</a
+		>
+	</div>
+
 	<hr />
+
 	<Game />
 </div>
 
@@ -19,6 +29,22 @@
 	.container {
 		max-width: 800px;
 		margin: 16px auto 0;
+	}
+
+	.title {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 8px;
+	}
+
+	h1 {
+		margin: 0;
+		flex: auto;
+	}
+
+	.github-link {
+		flex: none;
 	}
 
 	h1 {
