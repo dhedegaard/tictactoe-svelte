@@ -21,6 +21,11 @@
 				throw new TypeError(`Unexpected game state: ${rc}`);
 		}
 	};
+
+	const clickReset = () => {
+		game.reset();
+		game = game;
+	};
 </script>
 
 <div class="player-row">
@@ -28,7 +33,7 @@
 	{#if game.winner != null}
 		<div class="winner">
 			<h4>{game.winner} has won the game!</h4>
-			<button type="button" on:click={game.reset}>Reset game</button>
+			<button type="button" on:click={clickReset}>Reset game</button>
 		</div>
 	{/if}
 </div>

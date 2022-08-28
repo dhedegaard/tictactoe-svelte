@@ -20,11 +20,11 @@ const createInitialState = () => {
 		board: board as Board,
 		currentPlayer: currentPlayer as Player,
 		winner
-	};
+	} as const;
 };
 
 export const createGame = () => {
-	let { board, currentPlayer, winner } = createInitialState();
+	const { board, currentPlayer, winner } = createInitialState();
 
 	/** Triggers a click on the given position, for the current player. */
 	const clickPosition = (x: number, y: number): 'position-already-taken' | 'ok' | 'game-ended' => {
@@ -93,8 +93,10 @@ export const createGame = () => {
 
 	/** Resets the game state to the initial result. */
 	const reset = () => {
-		const newState = createInitialState();
-		(board = newState.board), (currentPlayer = newState.currentPlayer), (winner = newState.winner);
+		for (const [key, value] of Object.entries(createInitialState())) {
+			// @ts-expect-error - Looping on key/value pairs assigning without recreating the object.
+			result[key] = value;
+		}
 	};
 
 	const result = {
