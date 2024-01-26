@@ -9,7 +9,9 @@
 	{#each board as row, y}
 		<div class="row">
 			{#each row as cell, x}
-				<div tabindex="0" class="cell" on:click={() => clickPosition(x, y)}>{cell}</div>
+				<div role="button" tabindex="0" class="cell" on:click={() => clickPosition(x, y)}>
+					{cell}
+				</div>
 			{/each}
 		</div>
 	{/each}
