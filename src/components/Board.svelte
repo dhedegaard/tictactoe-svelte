@@ -11,7 +11,6 @@
 			{#each row as cell, x}
 				<button
 					type="button"
-					role="button"
 					tabindex="0"
 					class="cell"
 					on:click={() => clickPosition(x, y)}
