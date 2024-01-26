@@ -9,7 +9,13 @@
 	{#each board as row, y}
 		<div class="row">
 			{#each row as cell, x}
-				<button type="button" role="button" tabindex="0" class="cell" on:click={() => clickPosition(x, y)}>
+				<button
+					type="button"
+					role="button"
+					tabindex="0"
+					class="cell"
+					on:click={() => clickPosition(x, y)}
+				>
 					{cell}
 				</button>
 			{/each}
