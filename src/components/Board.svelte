@@ -9,7 +9,9 @@
 	{#each board as row, y}
 		<div class="row">
 			{#each row as cell, x}
-				<div tabindex="0" class="cell" on:click={() => clickPosition(x, y)}>{cell}</div>
+				<button type="button" tabindex="0" class="cell" on:click={() => clickPosition(x, y)}>
+					{cell}
+				</button>
 			{/each}
 		</div>
 	{/each}
@@ -50,6 +52,7 @@
 		align-items: center;
 		justify-content: center;
 		user-select: none;
+		border: none;
 		cursor: pointer;
 	}
 </style>
